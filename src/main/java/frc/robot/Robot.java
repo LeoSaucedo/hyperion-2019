@@ -353,7 +353,7 @@ public class Robot extends SampleRobot{
     public void moveForward(double distance) {
         if(isAutonomous() || isTest()){
             double initDistance = m_robotEncoder.getDistance();
-    	    while(m_robotEncoder.getDistance() < initDistance + distance) {
+    	    while((m_robotEncoder.getDistance() < initDistance + distance) && ((isAutonomous() || isTest()) && isEnabled())) {
     	    	System.out.println("Encoder:  " + m_robotEncoder.getDistance());
     		m_robotDrive.driveCartesian(0.0, 0.5, 0.0, 0.0);
     		Timer.delay(0.02);
@@ -372,7 +372,7 @@ public class Robot extends SampleRobot{
     public void moveBackward(double distance) {
         if(isAutonomous() || isTest()){
             double initDistance = m_robotEncoder.getDistance();
-    	    while(m_robotEncoder.getDistance() > initDistance - distance) {
+    	    while(m_robotEncoder.getDistance() > initDistance - distance && ((isAutonomous() || isTest()) && isEnabled())) {
       		    m_robotDrive.driveCartesian(0.0, -0.5, 0.0, 0.0);
     		  Timer.delay(0.02);
     	   }  
@@ -424,7 +424,7 @@ public class Robot extends SampleRobot{
     public void turnRight() {
     	if(isAutonomous() || isTest()) {
     		double initBearing = onboardGyro.getAngle();
-        	while(onboardGyro.getAngle() < initBearing + 90) {
+        	while(onboardGyro.getAngle() < initBearing + 90 && ((isAutonomous() || isTest()) && isEnabled())) {
         		System.out.println("Gyro: " + onboardGyro.getAngle());
         		m_robotDrive.driveCartesian(0.0, 0.0, 0.5,0.0);
         		Timer.delay(0.02);
@@ -441,7 +441,7 @@ public class Robot extends SampleRobot{
     public void turnLeft() {
         if(isAutonomous() || isTest()){
             double initBearing = onboardGyro.getAngle();
-    	while(onboardGyro.getAngle() > initBearing - 90) {
+    	while(onboardGyro.getAngle() > initBearing - 90 && ((isAutonomous() || isTest()) && isEnabled())) {
     		System.out.println("Gyro: " + onboardGyro.getAngle());
     		m_robotDrive.driveCartesian(0.0, 0.0, -0.5 , 0.0);
     		Timer.delay(0.02);
